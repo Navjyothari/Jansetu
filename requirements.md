@@ -1,287 +1,218 @@
-# JanSetu – Public Scheme Access Intelligence Engine
-
-## Requirements Document v1.0
+# JanSetu: AI-Powered Eligibility Intelligence Engine
+## Requirements Document
 
 ---
 
 ## 1. Project Overview
 
-**JanSetu** is an AI-powered eligibility intelligence system designed to bridge the gap between citizens and government welfare schemes. The system converts unstructured government scheme documents into structured, machine-readable eligibility logic and matches citizens to relevant schemes using explainable scoring mechanisms.
+### The Problem
 
-Unlike traditional chatbot interfaces, JanSetu is a structured intelligence platform featuring dashboards, analytics, and transparent decision-making processes that help citizens, NGOs, and government agencies efficiently identify and access applicable welfare programs.
+India has thousands of government welfare schemes, but citizens face critical barriers:
+
+- **Discovery Gap**: Citizens cannot find relevant schemes among thousands of programs
+- **Hidden Rules**: Eligibility criteria are buried in lengthy PDF documents
+- **Manual Confusion**: Verification processes are unclear and time-consuming
+- **Low Awareness**: Lack of structured information leads to poor scheme utilization
+- **Access Inequality**: Complex documentation excludes those who need help most
+
+### The Solution
+
+JanSetu is an AI-powered eligibility intelligence engine that:
+
+1. Ingests government scheme PDF documents
+2. Extracts eligibility rules using AI (OCR + LLM)
+3. Converts unstructured text into machine-readable rules
+4. Calculates explainable eligibility scores for citizens
+5. Provides analytics dashboards for administrators
+
+**JanSetu is NOT a chatbot.** It is a structured AI eligibility intelligence system that converts government scheme documents into machine-readable rules and produces explainable scoring for citizens and administrators.
 
 ---
 
 ## 2. Objectives
 
-- **Automate Scheme Discovery**: Eliminate manual searching through hundreds of government schemes
-- **Democratize Access**: Enable citizens, especially from underserved communities, to discover eligible schemes
-- **Ensure Transparency**: Provide explainable AI-driven recommendations with clear eligibility reasoning
-- **Support Decision Makers**: Equip NGOs, social workers, and policymakers with analytics and insights
-- **Reduce Administrative Burden**: Streamline scheme awareness and application processes
+- Simplify scheme discovery for citizens through intelligent matching
+- Automate eligibility rule extraction from PDF documents
+- Provide explainable scoring with clear reasoning
+- Enable administrators to upload and manage schemes easily
+- Deliver analytics for government and NGO decision-makers
+- Improve access to welfare programs across India
 
 ---
 
-## 3. Scope
+## 3. Demo Flow
 
-### In Scope
-- Document ingestion and processing (PDFs, web pages, scheme documents)
-- OCR and text extraction from scanned documents
-- AI-based extraction of eligibility criteria
-- Structured rule engine for scheme logic
-- Citizen profile matching and ranking
-- Explainable scoring system ("Why am I eligible?")
-- Analytics dashboard with scheme statistics
-- Admin panel for scheme management
-- Cloud-native deployment on AWS
+**Step-by-step demonstration for judges:**
 
-### Out of Scope
-- Direct application submission to government portals
-- Payment processing or financial transactions
-- Real-time government database integration
-- Mobile native applications (Phase 1)
-- Multi-language support (Phase 1)
-- Chatbot or conversational interface
+1. **Admin Upload**: Administrator uploads a government scheme PDF (e.g., PM-KISAN)
+2. **AI Extraction**: System uses OCR + LLM to extract eligibility criteria from document
+3. **Rule Structuring**: Extracted rules are converted to structured format and stored
+4. **Citizen Input**: Citizen enters their profile (age, income, location, occupation, etc.)
+5. **Score Calculation**: Eligibility engine calculates match score (0-100%) for each scheme
+6. **Explainability**: Results panel shows why citizen qualifies or doesn't qualify
+7. **Analytics Dashboard**: Admin views scheme utilization, eligibility trends, and insights
 
 ---
 
-## 4. Target Users
+## 4. Users
 
-### Primary Users
-1. **Citizens**: Individuals seeking government welfare schemes they qualify for
-2. **NGOs and Social Workers**: Organizations helping communities access benefits
-3. **Government Agencies**: Departments monitoring scheme reach and effectiveness
+### Citizen
+End-users seeking government schemes. They input their profile and receive personalized eligibility scores with explanations.
 
-### Secondary Users
-4. **Policy Analysts**: Researchers studying scheme coverage and gaps
-5. **System Administrators**: Technical staff managing the platform
+### Administrator
+Government officials or NGO staff who upload scheme documents and manage the system.
 
----
-
-## 5. Core Features
-
-### 5.1 Document Intelligence
-- Upload scheme documents (PDF, DOCX, web URLs)
-- OCR processing for scanned documents
-- Text extraction and preprocessing
-- AI-powered eligibility criteria extraction
-
-### 5.2 Eligibility Logic Engine
-- Convert natural language criteria into structured JSON rules
-- Support for multiple criteria types:
-  - Demographics (age, gender, caste, religion)
-  - Economic (income, BPL status, occupation)
-  - Geographic (state, district, urban/rural)
-  - Special categories (disability, widow, farmer, student)
-- Rule validation and conflict detection
-
-### 5.3 Citizen Matching System
-- Profile input interface for citizens
-- Multi-criteria matching algorithm
-- Explainable scoring (0-100 scale)
-- Ranked scheme recommendations
-- Eligibility explanation generator
-
-### 5.4 Analytics Dashboard
-- Total schemes processed
-- User engagement metrics
-- Scheme category distribution
-- Geographic coverage analysis
-- Eligibility trends and insights
-
-### 5.5 Administration Panel
-- Scheme upload and management
-- Document processing status tracking
-- User management
-- System health monitoring
-- Audit logs
+### Government/NGO Analyst
+Decision-makers who use analytics dashboards to understand scheme reach, gaps, and utilization patterns.
 
 ---
 
-## 6. Functional Requirements
+## 5. Functional Requirements
 
-### FR1: Document Ingestion
-- **FR1.1**: System shall accept PDF, DOCX, and web URL inputs
-- **FR1.2**: System shall perform OCR on scanned documents with >90% accuracy
-- **FR1.3**: System shall extract text and metadata from documents
-- **FR1.4**: System shall store original documents in cloud storage
+### FR1: Document Upload System
+- Admin can upload PDF documents of government schemes
+- System validates file format and size
+- Documents stored securely in cloud storage
 
-### FR2: Eligibility Extraction
-- **FR2.1**: System shall use LLM to identify eligibility criteria from text
-- **FR2.2**: System shall extract structured fields: age range, income limits, location, categories
-- **FR2.3**: System shall convert criteria into JSON rule format
-- **FR2.4**: System shall validate extracted rules for completeness
+### FR2: AI Eligibility Extraction
+- OCR extracts text from PDF documents
+- LLM identifies and extracts eligibility criteria
+- System handles multi-page documents and tables
 
-### FR3: Scheme Storage
-- **FR3.1**: System shall store schemes with metadata (name, department, benefits, deadlines)
-- **FR3.2**: System shall maintain version history of scheme rules
-- **FR3.3**: System shall support scheme categorization (education, health, agriculture, etc.)
-- **FR3.4**: System shall enable search and filtering of schemes
+### FR3: Rule Structuring Engine
+- Converts extracted text into structured rule format
+- Stores rules with conditions (age, income, location, occupation, etc.)
+- Maintains scheme metadata (name, department, benefits, deadlines)
 
-### FR4: Citizen Profile Matching
-- **FR4.1**: System shall accept citizen profile input (age, income, location, category, etc.)
-- **FR4.2**: System shall match profile against all active schemes
-- **FR4.3**: System shall calculate eligibility score (0-100) for each scheme
-- **FR4.4**: System shall rank schemes by relevance and eligibility
-- **FR4.5**: System shall complete matching within 5 seconds
+### FR4: Citizen Profile Input
+- Simple form for citizens to enter personal information
+- Fields: age, gender, income, location, occupation, family size, etc.
+- Profile saved for future scheme matching
 
-### FR5: Explainability
-- **FR5.1**: System shall generate human-readable explanations for each match
-- **FR5.2**: System shall highlight which criteria were met/not met
-- **FR5.3**: System shall show confidence scores for AI-extracted rules
-- **FR5.4**: System shall provide "Why not eligible" explanations for near-misses
+### FR5: Eligibility Scoring Engine
+- Matches citizen profile against structured scheme rules
+- Calculates eligibility score (0-100%) for each scheme
+- Ranks schemes by relevance to citizen
 
-### FR6: Dashboard and Analytics
-- **FR6.1**: System shall display total schemes, users, and matches
-- **FR6.2**: System shall visualize scheme distribution by category and geography
-- **FR6.3**: System shall show trending schemes and popular searches
-- **FR6.4**: System shall generate downloadable reports
+### FR6: Explainable Results Panel
+- Shows why citizen qualifies or doesn't qualify
+- Highlights matching criteria and missing requirements
+- Provides actionable next steps
 
-### FR7: Admin Functions
-- **FR7.1**: System shall provide secure admin authentication
-- **FR7.2**: System shall allow bulk scheme uploads
-- **FR7.3**: System shall display document processing status
-- **FR7.4**: System shall enable manual rule editing and override
-- **FR7.5**: System shall maintain audit logs of all admin actions
+### FR7: Admin Analytics Dashboard
+- Displays scheme upload history
+- Shows eligibility trends and user demographics
+- Provides insights on scheme reach and gaps
 
 ---
 
-## 7. Non-Functional Requirements
+## 6. Non-Functional Requirements
 
-### NFR1: Performance
-- **NFR1.1**: Scheme matching shall complete within 5 seconds for typical profiles
-- **NFR1.2**: Document processing shall handle files up to 50MB
-- **NFR1.3**: System shall support 1000 concurrent users
-- **NFR1.4**: Dashboard shall load within 2 seconds
+### Usability
+- Intuitive interface for non-technical users
+- Mobile-responsive design
+- Support for English (Hindi for future scope)
 
-### NFR2: Scalability
-- **NFR2.1**: Architecture shall support horizontal scaling
-- **NFR2.2**: System shall handle 10,000+ schemes in database
-- **NFR2.3**: Storage shall scale automatically with demand
+### Scalability
+- Handle 100+ schemes in MVP
+- Support concurrent users during demo
 
-### NFR3: Reliability
-- **NFR3.1**: System uptime shall be 99.5% or higher
-- **NFR3.2**: Data shall be backed up daily
-- **NFR3.3**: Failed document processing shall retry automatically
+### Reliability
+- 95%+ uptime during hackathon demo
+- Graceful error handling for failed extractions
 
-### NFR4: Security
-- **NFR4.1**: All data transmission shall use HTTPS/TLS
-- **NFR4.2**: User data shall be encrypted at rest
-- **NFR4.3**: Admin access shall require multi-factor authentication
-- **NFR4.4**: System shall comply with data privacy regulations
-- **NFR4.5**: PII shall be anonymized in analytics
+### Performance
+- PDF processing within 30-60 seconds
+- Eligibility scoring in under 2 seconds
+- Dashboard loads within 3 seconds
 
-### NFR5: Usability
-- **NFR5.1**: UI shall be intuitive for users with basic digital literacy
-- **NFR5.2**: Forms shall provide clear validation messages
-- **NFR5.3**: System shall be accessible on desktop and tablet devices
-- **NFR5.4**: Interface shall follow WCAG 2.1 Level AA guidelines
+### Security
+- Secure document storage
+- Basic authentication for admin panel
+- No PII exposure in logs
 
-### NFR6: Maintainability
-- **NFR6.1**: Code shall follow modular microservices architecture
-- **NFR6.2**: APIs shall be versioned and documented
-- **NFR6.3**: System shall include comprehensive logging
-- **NFR6.4**: Infrastructure shall be defined as code (IaC)
-
-### NFR7: Explainability and Transparency
-- **NFR7.1**: AI decisions shall be traceable and auditable
-- **NFR7.2**: Confidence scores shall be displayed for AI-extracted rules
-- **NFR7.3**: System shall provide clear reasoning for all recommendations
+### Explainability
+- Clear reasoning for every eligibility decision
+- Transparent rule display
+- Audit trail for extracted rules
 
 ---
 
-## 8. Technology Stack
+## 7. AI Justification
 
-### Frontend
-- **Framework**: React 18+
-- **UI Library**: Material-UI / Tailwind CSS
-- **State Management**: Redux / Context API
-- **Visualization**: Chart.js / Recharts
+AI is essential for JanSetu because:
 
-### Backend
-- **API Layer**: Node.js (Express) / Python (FastAPI)
-- **Rule Engine**: Custom JSON-based logic processor
-- **Authentication**: JWT / AWS Cognito
+### Document Understanding
+- **OCR**: Extracts text from scanned PDFs and images
+- **LLM**: Understands context and identifies eligibility criteria from unstructured text
+- **Structured Conversion**: Transforms natural language rules into machine-readable format
 
-### AI/ML
-- **LLM**: AWS Bedrock (Claude/Titan) / OpenAI API
-- **OCR**: AWS Textract
-- **Text Processing**: LangChain / Custom NLP pipelines
+### Intelligent Extraction
+- Handles variations in document formats across departments
+- Identifies implicit eligibility conditions
+- Extracts tables, lists, and nested criteria
 
-### Data Storage
-- **Primary Database**: PostgreSQL (structured scheme data)
-- **Document Store**: AWS S3
-- **Cache**: Redis (optional for performance)
-- **Alternative**: DynamoDB for NoSQL approach
+### Explainable Scoring
+- AI-powered reasoning explains eligibility decisions
+- Generates human-readable explanations from structured rules
 
-### Cloud Infrastructure (AWS)
-- **Compute**: AWS Lambda (serverless functions) / ECS (containers)
-- **Storage**: S3 (documents), RDS (PostgreSQL)
-- **AI Services**: Bedrock, Textract
-- **API Gateway**: AWS API Gateway
-- **Monitoring**: CloudWatch
-- **IaC**: AWS CDK / Terraform
-
-### DevOps
-- **CI/CD**: GitHub Actions / AWS CodePipeline
-- **Containerization**: Docker
-- **Orchestration**: AWS ECS / Fargate
+**AI is used for document understanding and rule extraction, NOT for chat or conversation.**
 
 ---
 
-## 9. Assumptions and Constraints
+## 8. AWS Stack (Hackathon-Friendly)
 
-### Assumptions
-- Government scheme documents are publicly available
-- Eligibility criteria are clearly stated in source documents
-- Users have basic digital literacy and internet access
-- AWS services are available and within budget
-- LLM APIs provide sufficient accuracy for criteria extraction
+### Architecture Components
 
-### Constraints
-- Budget limitations for cloud services and API usage
-- Time constraint for hackathon/prototype development
-- Limited access to real-time government databases
-- No direct integration with government application portals
-- English-only support in initial version
+- **Amazon S3**: Document storage for uploaded PDFs
+- **AWS Textract**: OCR for text extraction from PDFs
+- **Amazon Bedrock**: LLM (Claude/Titan) for eligibility rule extraction
+- **AWS Lambda**: Serverless processing for extraction pipeline
+- **Amazon DynamoDB**: NoSQL storage for structured rules and profiles
+- **API Gateway**: REST API backend for frontend
+- **Simple Frontend**: React/HTML dashboard for demo
+
+### Data Flow
+1. Admin uploads PDF → S3
+2. Lambda triggers Textract → extracts text
+3. Lambda calls Bedrock → LLM extracts rules
+4. Structured rules → DynamoDB
+5. Citizen profile → scoring engine → results
+6. Analytics queries → DynamoDB → dashboard
+
+---
+
+## 9. Hackathon MVP Scope
+
+**For the hackathon prototype, JanSetu will include:**
+
+- **5 Sample Schemes**: Pre-loaded schemes (PM-KISAN, Ayushman Bharat, etc.)
+- **Automated Extraction**: Full pipeline from PDF to structured rules
+- **Scoring Engine**: Working eligibility calculator with explainability
+- **Explainability Panel**: Clear reasoning for eligibility decisions
+- **Admin Upload Panel**: Interface to upload and process new schemes
+- **Simple Analytics Dashboard**: Basic metrics on schemes and users
+
+**Out of Scope for MVP:**
+- Mobile app
+- Multi-language support
+- Real-time government API integration
+- Advanced analytics (ML predictions)
 
 ---
 
 ## 10. Future Scope
 
-### Phase 2 Enhancements
-- **Multi-language Support**: Hindi, regional languages
-- **Mobile Applications**: Native iOS and Android apps
-- **Advanced AI**: Fine-tuned models for scheme-specific extraction
-- **Government Integration**: Direct API connections to official portals
-- **Application Assistance**: Guided form filling and document preparation
-- **Notification System**: Alerts for new schemes and deadlines
-- **Community Features**: User reviews, success stories, Q&A forums
-- **Offline Mode**: Progressive Web App with offline capabilities
-- **Voice Interface**: Voice-based profile input for accessibility
-- **Blockchain**: Immutable audit trail for scheme eligibility verification
+### Post-Hackathon Enhancements
 
-### Long-term Vision
-- Expand to other countries and welfare systems
-- Partner with government agencies for official adoption
-- Integrate with Aadhaar and DigiLocker for automated profile creation
-- Develop predictive analytics for scheme impact assessment
-- Create API marketplace for third-party integrations
+- **Multilingual Support**: Hindi, Tamil, Bengali, and other regional languages
+- **Mobile Application**: Native iOS/Android apps for wider reach
+- **Government Integration**: Direct API connections to scheme databases
+- **SMS/WhatsApp Notifications**: Alerts for new matching schemes
+- **Advanced Analytics**: ML-based predictions for scheme utilization
 
 ---
 
-## Document Control
+## Summary
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | 2026-02-14 | Project Team | Initial requirements document |
-
----
-
-**Document Status**: Draft for Review  
-**Next Review Date**: TBD  
-**Approval Required From**: Project Stakeholders, Technical Lead
-
----
-
-*This document serves as the foundation for the JanSetu project and should be reviewed and updated as the project evolves.*
+JanSetu addresses a critical gap in government welfare access by using AI to convert unstructured scheme documents into structured, explainable eligibility intelligence. The system is designed as a practical, buildable MVP for the hackathon that demonstrates real value for citizens and administrators.
